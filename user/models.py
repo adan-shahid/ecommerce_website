@@ -4,15 +4,40 @@ from django.contrib.auth.models import (
 )
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, password = None):
+    def create_user(self, email, password = None, is_active = True, is_staff = False, is_admin = False):
         if not email:
             raise ValueError("Users must have an email address ")
+        if not password:
+            raise ValueError("Users must have a password ")
         user = self.model(
             email = self.normalize_email(email)
         )
         user.set_password(password)
+        user.staff = is_staff
+        user.admin = is_admin
+        user.active = is_active
         user.save(using=self._db)
         return user
+    
+    def create_staffuser(self, email, password=None):
+        user = self.create_user(
+            email, 
+            password=password,
+            is_staff= True
+        )
+        return user
+    def create_superuser(self, email, password=None):
+        user = self.create_user(
+            email,
+            password=password,
+            is_staff=True,
+            is_admin=True
+        )
+        return True
+    
+    
+
+
 
 # Create your models here.
 
@@ -38,6 +63,12 @@ class User(AbstractBaseUser):
 
     def get_short_name(self):
         return self.email
+    
+    def has_perm(self, perm, obj=None):
+        return True
+    
+    def has_module_perms(self, app_label):
+        return True
     
     @property
     def is_staff(self):
