@@ -42,8 +42,8 @@ class UserManager(BaseUserManager):
 # Create your models here.
 
 class User(AbstractBaseUser):
-    email = models.EmailField(max_length=255,unique=True)
-    # full_name = models.CharField(max_length=255, blank=True, null=True)
+    email = models.EmailField(max_length=255,unique=True, blank=True)
+    full_name = models.CharField(max_length=255, blank=True, null=True)
     active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False)  # staff user, non superuser
     admin = models.BooleanField(default=False) # superuser
