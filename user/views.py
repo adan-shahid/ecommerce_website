@@ -16,10 +16,10 @@ def signup(request):
             user = form.save()
             login(request, user)
             return redirect('home')
-        else:
-            form = customUserCreationForm()
+    else:
+        form = customUserCreationForm()
         
-        context = {
-            'form':form
+    context = {
+        'form':form
         }
-        return render(request, 'user/signup.html', context)
+    return render(request, 'user/signup.html', context)
