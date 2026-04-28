@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib import messages
 
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from .forms import customUserCreationForm
 
 # Create your views here.
@@ -15,6 +16,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            messages.success('Your account is created successfully.')
             return redirect('home')
     else:
         form = customUserCreationForm()
@@ -23,3 +25,9 @@ def signup(request):
         'form':form
         }
     return render(request, 'user/signup.html', context)
+
+
+def logout_view(request):
+    logout(request)
+    messages.info(request, 'You are logged out')
+    return redirect('index')

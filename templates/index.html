@@ -1,3 +1,18 @@
-<h1>This is my Home Page.</h1>
 
+
+
+<h1>This is my Home Page.</h1>
+{% if user.is_authenticated %}
+
+<h2>You are Logged in as {{user.username}}</h2>
+<form action="{% url 'logout' %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" >Log Out</button>
+</form>
+
+{% else %}
 <a href="{% url 'signup' %}" > sign up here</a>
+
+ 
+{% endif %}
+
