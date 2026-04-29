@@ -17,7 +17,7 @@ def signup(request):
             user = form.save()
             login(request, user)
             messages.success('Your account is created successfully.')
-            return redirect('home')
+            return redirect('index')
     else:
         form = customUserCreationForm()
         
@@ -29,7 +29,7 @@ def signup(request):
 def login_view(request):
     if request.user.is_authenticated:
         messages.error(request,'You are already logged in')
-        return redirect('home')
+        return redirect('index')
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -39,7 +39,7 @@ def login_view(request):
         if user is not None:
             login(request, user)
             messages.success(request, 'you are logged in successfully')
-            return redirect('home')
+            return redirect('index')
         else:
             messages.error(request, 'Invalid Login credentials')
             return redirect('login')
