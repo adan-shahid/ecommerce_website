@@ -1,13 +1,21 @@
+
 {% extends 'base.html' %}
 
 {% block content %}
 
 <h2>Login</h2>
 
-<form action="" method="POST"  
+
+<form method="POST">
     {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit" >Login</button>
+    <label>Username</label>
+    <input type="username" name="username" placeholder="Enter Your username" >  
+
+    <label>Password</label>
+    <input type="password" name="password" placeholder="Enter Your Password">
+
+
+    <button type="submit">Login</button>
 </form>
 
 {% endblock %}
