@@ -17,12 +17,14 @@
         {% endif %}
     </nav>
 
-    <hr>
-{% for message in messages %}
+    {% for message in messages %}
     <div class="alert alert-{{ message.tags }}">
         {{ message }}
     </div>
-{% endfor %}
+    {% endfor %}
+
+    <hr>
+
 
     {% block content %}
 

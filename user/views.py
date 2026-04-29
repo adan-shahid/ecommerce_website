@@ -16,7 +16,7 @@ def signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            messages.success('Your account is created successfully.')
+            messages.success(request, 'Your account is created successfully.')
             return redirect('index')
     else:
         form = customUserCreationForm()
@@ -38,7 +38,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, 'you are logged in successfully')
+            messages.success(request, 'you logged in successfully')
             return redirect('index')
         else:
             messages.error(request, 'Invalid Login credentials')
