@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user',
+    'products',
 ]
 
 AUTH_USER_MODEL = 'user.customUser' #changes the built-in user model to our custom user model.
