@@ -2,46 +2,28 @@
 
 {% block content %}
 
-<h2>Sign Up</h2>
-
 <div class="card shadow-sm" style="max-width: 400px; margin: auto;">
   <div class="card-body p-4">
     <h3 class="card-title text-center mb-4">Create an Account</h3>
-    <form>
+    <form method="POST" enctype="multipart/form-data" >
+        {% csrf_token %}
+      {% for field in form %}  
       <div class="mb-3">
-        <label for="signupName" class="form-label">Full Name</label>
-        <input type="text" class="form-control" id="signupName" placeholder="John Doe" required>
+        <label for="signupName" class="form-label">{{field.label}}</label>
+        <input type="text" class="form-control"  placeholder="{{field.label}}" required>
       </div>
       
-      <div class="mb-3">
-        <label for="signupEmail" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="signupEmail" placeholder="name@example.com" required>
-      </div>
-      
-      <div class="mb-3">
-        <label for="signupPassword" class="form-label">Password</label>
-        <input type="password" class="form-control" id="signupPassword" required>
-      </div>
-      
-      <div class="mb-4">
-        <label for="confirmPassword" class="form-label">Confirm Password</label>
-        <input type="password" class="form-control" id="confirmPassword" required>
-      </div>
+      {% endfor %}
+    
       
       <button type="submit" class="btn btn-success w-100">Sign Up</button>
       
       <div class="text-center mt-3">
-        <small>Already have an account? <a href="#" class="text-decoration-none">Log in</a></small>
+        <small>Already have an account? <a href="{% url 'login' %}" class="text-decoration-none">Log in</a></small>
       </div>
     </form>
   </div>
 </div>
 
-
-<form action="" method="POST" enctype="multipart/form-data" >
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit" >Register</button>
-</form>
 
 {% endblock %}
