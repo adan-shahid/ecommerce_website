@@ -2,11 +2,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
+ <div class="card shadow-sm" style="max-width: 400px; margin: auto;">
+  <div class="card-body p-4">
+    <h3 class="card-title text-center mb-4">Login</h3>
+    <form method="POST" >
+        {% csrf_token %}
+      <div class="mb-3">
+        <label for="loginUsername" class="form-label">Username</label>
+        <input type="text" class="form-control" id="loginUsername" placeholder="Enter your username" required>
+      </div>
+      
+      <div class="mb-3">
+        <label for="loginPassword" class="form-label">Password</label>
+        <input type="password" class="form-control" id="loginPassword" required>
+      </div>
+<!--       
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="rememberMe">
+        <label class="form-check-label" for="rememberMe">Remember me</label>
+      </div> -->
+      
+      <button type="submit" class="btn btn-primary w-100">Login</button>
+      
+      <div class="text-center mt-3">
+        <small>Don't have an account? <a href="{% url 'signup' %}" class="text-decoration-none">Sign up</a></small>
+      </div>
+    </form>
+  </div>
+</div>
 
-<h2>Login</h2>
 
-
-<form method="POST">
+<!-- <form method="POST">
     {% csrf_token %}
     <label>Username</label>
     <input type="username" name="username" placeholder="Enter Your username" >  
@@ -16,6 +42,6 @@
 
 
     <button type="submit">Login</button>
-</form>
+</form> -->
 
 {% endblock %}

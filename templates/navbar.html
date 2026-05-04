@@ -1,16 +1,15 @@
-
-
-
-<nav class="navbar navbar-expand-lg"  style="background-color: #e3f2fd;" data-bs-theme="light" >
+<nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;" data-bs-theme="light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar w/ text</a>
+    <a class="navbar-brand me-4" href="#">Ecommerce Platform</a>
+    
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+    
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Features</a>
@@ -20,14 +19,10 @@
         </li>
       </ul>
   
-   
-      <li class="d-flex nav-item " >
-        <button class="btn btn-outline-success" type="submit">Login</button>
-        <button class="btn btn-outline-success" type="submit">SignUp</button>
-
-    </li>
-
-
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-success" type="button">Login</button>
+        <button class="btn btn-outline-success" type="button">SignUp</button>
+      </div>
 
     </div>
   </div>
