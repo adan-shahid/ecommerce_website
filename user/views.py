@@ -51,10 +51,13 @@ def login_view(request):
     return render(request, 'user/login.html')
 
 
-
-
-
 def logout_view(request):
     logout(request)
     messages.info(request, 'You are logged out')
     return redirect('index')
+
+
+def forgot_password_view(request):
+
+    
+    return render(request, 'user/forgot_password.html')
