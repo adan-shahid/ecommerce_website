@@ -3,24 +3,10 @@
 
 {% block content %}
 
-<h1>This is my Home Page.</h1>
-{% if user.is_authenticated %}
+<h1>Welcome to this Ecommerce Platform. Here we sell electronic gadgets.</h1>
 
-<h2>You are Logged in as {{user.username}}</h2>
-<form action="{% url 'logout' %}" method="POST">
-    {% csrf_token %}
-    <button type="submit" >Log Out</button>
-</form>
 
-{% else %}
 
-<a href="{% url 'signup' %}" > Sign Up</a>
-<br>
-<br>
-<a href="{% url 'login' %}" > LOGIN </a>
-
- 
-{% endif %}
 
 {% endblock %} 
 
