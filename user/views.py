@@ -18,6 +18,9 @@ def signup(request):
             login(request, user)
             messages.success(request, 'Your account is created successfully.')
             return redirect('index')
+        else:
+            print('Form validation failed')
+            print(form.errors)
     else:
         form = customUserCreationForm()
         

@@ -6,14 +6,34 @@
   <div class="card-body p-4">
     <h3 class="card-title text-center mb-4">Create an Account</h3>
     <form method="POST" enctype="multipart/form-data" >
-        {% csrf_token %}
+      {% csrf_token %}
+
+      {% if form.non_field_errors %}
+
+      <div class="alert alert-danger">
+        {{form.non_field_errors}}
+      </div>
+      {% endif %}
+
+
+
       {% for field in form %}  
       <div class="mb-3">
-        <label for="signupName" class="form-label">{{field.label}}</label>
-        <input type="text" class="form-control"  placeholder="{{field.label}}" required>
+        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+        
+        {{ field }}
+
+      {% if field.errors %}
+      <div class="text-danger small mt-1">
+        {{field.errors}}
+      </div>
+      {% endif %}
+
       </div>
       
       {% endfor %}
+
+   
     
       
       <button type="submit" class="btn btn-success w-100">Sign Up</button>
