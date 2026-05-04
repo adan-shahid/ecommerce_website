@@ -11,3 +11,8 @@ class customUserChangeForm(UserChangeForm):
     class Meta:
         model = customUser
         fields = ('username',)
+
+class passwordresetForm(forms.ModelForm):
+    class Meta:
+        model = customUser
+        fields = ('email',)

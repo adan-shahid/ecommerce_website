@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 
 from django.contrib.auth import login, logout, authenticate
-from .forms import customUserCreationForm, customUserChangeForm
+from .forms import customUserCreationForm, customUserChangeForm, passwordresetForm
 
 # Create your views here.
 
@@ -58,6 +58,11 @@ def logout_view(request):
 
 
 def forgot_password_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        if email is None:
+            messages.error(request, 'Invalid credentials')
+        
 
-    
+
     return render(request, 'user/forgot_password.html')
