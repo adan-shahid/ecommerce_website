@@ -4,7 +4,13 @@ from django.contrib import messages
 
 from django.contrib.auth import login, logout, authenticate
 from .forms import customUserCreationForm, customUserChangeForm, passwordresetForm
-
+from django.contrib.auth.models import User
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from django.contrib.auth.tokens import default_token_generator
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.utils.html import strip_tags
 # Create your views here.
 
 def gretting(request):
@@ -57,12 +63,46 @@ def logout_view(request):
     return redirect('index')
 
 
-def forgot_password_view(request):
+def reset_password_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
-        if email is None:
-            messages.error(request, 'Invalid credentials')
-        
 
+        #checking if the user exists
+        user = User.objects.filter(email=email)
+        if user.exists():
+            for existed_user in user:
+                #generating the secure token and uid
+                uid = urlsafe_base64_encode(force_bytes(existed_user.pk))
+                token = default_token_generator.make_token(existed_user)
+
+                #building the email context
+                context = {
+                    'email':existed_user.email,
+                    'domain': request.META['HTTP_HOST'],
+                    'uid': uid,
+                    'token':token,
+                    'protocol': 'http'if request.is_secure() == False else 'https',
+
+                }
+
+                #render the email text and send it
+                html_email_content = render_to_string('user/password_reset_email.html', context)
+
+                #automatically generate the plain text of the html file
+                plain_text_email = strip_tags(html_email_content)
+                send_mail(
+                    subject='Password Reset Requested',
+                    message=plain_text_email,
+                    from_email='adanshahid.engineer@gmail.com',
+                    recipient_list=[existed_user.email],
+                    fail_silently=False,
+                    html_message=html_email_content
+                )
+        return redirect('custom_password_reset_done')
 
     return render(request, 'user/forgot_password.html')
+
+
+#once the email is send, this view will triggered
+def custom_password_reset_done(request):
+    return render(request, 'user/password_reset_done.html')
