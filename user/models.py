@@ -14,7 +14,7 @@ class customUser(AbstractUser):
         return self.username
     
 class userProfile(models.Model):
-    user = models.OneToOneField(customUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(customUser, on_delete=models.CASCADE, related_name='profile')
     image = models.ImageField(upload_to='users/', null=True, blank=True)
     phone_number = models.CharField(max_length=15, null=True)
     shipping_address = models.CharField(max_length=250, null=False)
