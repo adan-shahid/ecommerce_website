@@ -22,7 +22,8 @@ class userProfile(models.Model):
     bio = models.CharField(max_length=250, null=True)
 
   
-
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
 # class UserManager(BaseUserManager):
 #     def create_user(self, email, password = None, is_active = True, is_staff = False, is_admin = False):
 #         if not email:
