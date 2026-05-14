@@ -3,27 +3,68 @@
 {% block content %}
 <h2>Below are the Available products. </h2>
 
-<div class="card" style="width: 18rem;">
-  <img src="..." class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
 
-<div class="products">
-    {% for product in products %}
-        <div class="product-card">
-            <!-- {% if product.image %}
-                <img src="{{ product.image.url }}" width="200">
-            {% endif %} -->
-
-            <h3>{{ product.name }}</h3>
-            <p>{{ product.description }}</p>
-            <p>Price: ${{ product.price }}</p>
+<div class="container py-5">
+    <h2 class="mb-4">Top Sellers</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        
+        <div class="col">
+            <div class="card h-100 position-relative">
+                <div class="badge bg-danger position-absolute top-0 start-0 m-2">SALE</div>
+                <button class="btn btn-light btn-sm position-absolute top-0 end-0 m-2 rounded-circle shadow-sm">
+                    <i class="fa-regular fa-heart text-muted"></i>
+                </button>
+                
+                <img src="https://via.placeholder.com/300x250" class="card-img-top p-3" alt="Product Image">
+                <div class="card-body">
+                    <div class="text-warning mb-1 small">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <span class="text-muted ms-1">(4.5)</span>
+                    </div>
+                    <h6 class="card-title text-truncate">Wireless Noise-Cancelling Headphones</h6>
+                    <div class="mb-3">
+                        <span class="fs-5 fw-bold text-dark">$129.00</span>
+                        <span class="text-muted text-decoration-line-through ms-2 small">$199.00</span>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent border-top-0 pb-3">
+                    <button class="btn btn-primary w-100">
+                        <i class="fa-solid fa-cart-shopping me-2"></i> Add to Cart
+                    </button>
+                </div>
+            </div>
         </div>
-    {% endfor %}
+
+        </div>
 </div>
+
+
+
+<!-- <div class="container py-5">
+    <h2 class="text-center mb-5">New Arrivals</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        
+        <div class="col">
+            <div class="card h-100 border-0 shadow-sm">
+                <img src="https://via.placeholder.com/400x400" class="card-img-top rounded-0" alt="Product Image">
+                <div class="card-body text-center">
+                    <h5 class="card-title fw-light">Classic White Sneakers</h5>
+                    <p class="card-text fw-bold">$59.99</p>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-dark rounded-0" type="button">Add to Cart</button>
+                        <a href="#" class="text-muted text-decoration-none small">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+</div> -->
+
+
 
 {% endblock %}
