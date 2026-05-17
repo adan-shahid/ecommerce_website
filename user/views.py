@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 
 from django.contrib.auth import login, logout, authenticate
-from .forms import customUserCreationForm, customUserChangeForm, passwordresetForm
+from .forms import customUserCreationForm, UserProfileUpdateForm, passwordresetForm
 from django.contrib.auth import get_user_model
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
@@ -140,5 +140,16 @@ def password_reset_complete(request):
     return render(request, 'user/password_reset_complete.html')
 
 
-def user_profile(request):     
-    return render(request, 'user/user_profile.html')
+def user_profile(request): 
+    if request.method == 'POST':
+        form = UserProfileUpdateForm(request.POST, request.FILES, instance = request.user.profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your Profile has been Updated successfully')
+            return redirect('userprofile')    
+    else:
+        form = UserProfileUpdateForm(instance = request.user.profile)
+    context = {
+        'form':form,
+     }
+    return render(request, 'user/user_profile.html', context)
