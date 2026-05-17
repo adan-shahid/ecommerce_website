@@ -140,5 +140,5 @@ def password_reset_complete(request):
     return render(request, 'user/password_reset_complete.html')
 
 
-def user_profile(request):
+def user_profile(request):     
     return render(request, 'user/user_profile.html')
