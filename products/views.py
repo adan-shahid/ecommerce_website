@@ -8,3 +8,7 @@ def product_View(request):
         'products':products
     }
     return render(request, 'product/product.html', context)
+
+
+def product_detail(request):
+    return render(request, 'product/product_detail.html')
