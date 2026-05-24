@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'products',
+    'cart',
 ]
 
 AUTH_USER_MODEL = 'user.customUser' #changes the built-in user model to our custom user model.
