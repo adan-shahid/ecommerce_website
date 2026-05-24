@@ -49,7 +49,7 @@
                     </div>
                     
                     <div class="col-sm-8">
-                        <form method="POST" action="{% url 'add-to-cart' product_id %}">
+                        <form method="POST" action="{% url 'add-to-cart' product.id %}">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-primary w-100 py-2 d-flex align-items-center justify-content-center gap-2fw-semibold">
                                 <i class="bi bi-cart-plus-fill"></i> Add to Cart
