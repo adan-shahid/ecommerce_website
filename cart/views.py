@@ -3,6 +3,7 @@ from products.models import Product
 
 # Create your views here.
 def add_to_cart(request, product_id):
+    print('add to cart view has been triggered')
     product = get_object_or_404(Product, id = product_id)
     cart = request.session.get('cart', {})
     product_id_str = str(product_id)
@@ -14,4 +15,5 @@ def add_to_cart(request, product_id):
 
     request.session['cart'] = cart
     request.session.modifed = True
+    print(f'cart count is now {cart}')
     return redirect('index')
