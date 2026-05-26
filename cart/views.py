@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product
 
 # Create your views here.
+
+def cart(request):
+    return render(request, 'cart/cart_page.html' )
 def add_to_cart(request, product_id):
     print('add to cart view has been triggered')
     product = get_object_or_404(Product, id = product_id)
