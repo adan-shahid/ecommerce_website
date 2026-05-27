@@ -5,8 +5,8 @@ from products.models import Product
 
 def cart(request):
     return render(request, 'cart/cart_page.html' )
+
 def add_to_cart(request, product_id):
-    print('add to cart view has been triggered')
     product = get_object_or_404(Product, id = product_id)
     cart = request.session.get('cart', {})
     product_id_str = str(product_id)
