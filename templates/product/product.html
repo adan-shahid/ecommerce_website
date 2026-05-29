@@ -17,8 +17,7 @@
                     <p class="card-text fw-bold">${{product.price}}</p>
 
                     <div class="d-grid gap-2">
-                        <button class="btn btn-dark rounded-0" type="button">Add to Cart</button>
-                        <a href="{% url 'product-detail' product.id %}" class="text-muted text-decoration-none small">View Details</a>
+                        <a class="btn btn-dark rounded-0" href="{% url 'product-detail' product.id %}" class="text-muted text-decoration-none small">View Details</a>
                     </div>
                 </div>
             </div>
