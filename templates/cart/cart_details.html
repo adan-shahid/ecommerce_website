@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% include 'navbar.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Shopping Cart</h2>
+
+    {% if cart_items %}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Subtotal</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>
+                            <strong>{{ item.product.name }}</strong>
+                        </td>
+                        <td>${{ item.product.price|floatformat:2 }}</td>
+                        <td>
+                            <form action="#" method="POST" class="d-flex" style="max-width: 100px;">
+                                {% csrf_token %}
+                                <input type="number" name="quantity" value="{{ item.quantity }}" class="form-control form-control-sm me-2" min="1">
+                                <button type="submit" class="btn btn-sm btn-outline-secondary">&#x21bb;</button>
+                            </form>
+                        </td>
+                        <td>${{ item.subtotal|floatformat:2 }}</td>
+                        <td>
+                            <a href="#" class="btn btn-sm btn-danger">Remove</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <a href="#" class="btn btn-outline-primary">&larr; Continue Shopping</a>
+            </div>
+            <div class="col-md-6 text-end">
+                <h4>Total: <strong>${{ cart_total|floatformat:2 }}</strong></h4>
+                <a href="#" class="btn btn-success btn-lg mt-2">Proceed to Checkout</a>
+            </div>
+        </div>
+
+    {% else %}
+        <div class="alert alert-info text-center" role="alert">
+            Your cart is currently empty.
+            <br>
+            <a href="#" class="btn btn-primary mt-3">Go Shopping</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

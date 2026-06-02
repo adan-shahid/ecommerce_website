@@ -9,8 +9,18 @@ def cart(request):
     return render(request, 'cart/cart_page.html' )
 
 def cart_detail(request):
-    cartitem = cart
-    return render(request, 'cart/cart_details.html')
+    cart_items = CartItem.objects.filter(cart__user=request.user)
+    cart_total = 0
+    for item in cart_items:
+        subtotal = item.product.price * item.quantity
+        cart_total += subtotal
+
+    context = {
+        'cart_items': cart_items,
+        'cart_total': cart_total,
+    }
+    
+    return render(request, 'cart/cart_details.html', context)
 
 @login_required
 def add_to_cart(request, product_id):
