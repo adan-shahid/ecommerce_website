@@ -6,6 +6,9 @@ from products.models import Product
 def cart(request):
     return render(request, 'cart/cart_page.html' )
 
+def cart_detail(request):
+    return render(request, 'cart/cart_details.html')
+
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id = product_id)
     cart = request.session.get('cart', {})
