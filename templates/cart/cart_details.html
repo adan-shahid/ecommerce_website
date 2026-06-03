@@ -34,9 +34,15 @@
         <td>${{ item.subtotal|floatformat:2 }}</td>
         
         <td>
-            <a href="{% url 'remove-cart-item' item.id %}" class="btn btn-danger w-50 d-inline-flex align-items-center justify-content-center" style="height: 40px !important;">
+            <a href="{% url 'remove-cart-item' item.id %}" 
+   style="background-color: #dc3545; color: white; width: 50%; height: 40px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px; text-decoration: none; font-weight: 500; font-size: 14px; border: none; transition: background-color 0.15s ease-in-out;"
+   onmouseover="this.style.backgroundColor='#bb2d3b'" 
+   onmouseout="this.style.backgroundColor='#dc3545'">
+    Remove
+</a>
+            <!-- <a href="{% url 'remove-cart-item' item.id %}" class="btn btn-danger w-50 d-inline-flex align-items-center justify-content-center" style="height: 40px !important;">
                 Remove
-            </a>
+            </a> -->
         </td>
     </tr>
     {% endfor %}
@@ -58,7 +64,7 @@
         <div class="alert alert-info text-center" role="alert">
             Your cart is currently empty.
             <br>
-            <a href="#" class="btn btn-primary mt-3">Go Shopping</a>
+            <a href="{% url 'product' %}" class="btn btn-primary mt-3">Go Shopping</a>
         </div>
     {% endif %}
 </div>
