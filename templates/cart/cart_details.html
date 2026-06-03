@@ -17,32 +17,30 @@
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                    {% for item in cart_items %}
-                    <tr>
-                        <td>
-                            <strong>{{ item.product.name }}</strong>
-                        </td>
-                        <td>${{ item.product.price|floatformat:2 }}</td>
-                        <td>
-                            <form action="#" method="POST" class="d-flex" style="max-width: 100px;">
-                                {% csrf_token %}
-                                <input type="number" name="quantity" value="{{ item.quantity }}" class="form-control form-control-sm me-2" min="1">
-                                <button type="submit" class="btn btn-sm btn-outline-secondary">&#x21bb;</button>
-                            </form>
-                        </td>
-                        <td>${{ item.subtotal|floatformat:2 }}</td>
-                        <td>
-                            <form action="{% url 'remove-cart-item' item.id %}" method="POST" style="display:inline;">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger w-50" style="height: 40px !important; flex: 0 0 auto !important;">
-        Remove
-    </button>
-</form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
+<tbody>
+    {% for item in cart_items %}
+    <tr>
+        <td>
+            <strong>{{ item.product.name }}</strong>
+        </td>
+        <td>${{ item.product.price|floatformat:2 }}</td>
+        <td>
+            <form action="#" method="POST" class="d-flex" style="max-width: 100px;">
+                {% csrf_token %}
+                <input type="number" name="quantity" value="{{ item.quantity }}" class="form-control form-control-sm me-2" min="1">
+                <button type="submit" class="btn btn-sm btn-outline-secondary">&#x21bb;</button>
+            </form>
+        </td>
+        <td>${{ item.subtotal|floatformat:2 }}</td>
+        
+        <td>
+            <a href="{% url 'remove-cart-item' item.id %}" class="btn btn-danger w-50 d-inline-flex align-items-center justify-content-center" style="height: 40px !important;">
+                Remove
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
             </table>
         </div>
 

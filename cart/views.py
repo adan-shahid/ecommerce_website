@@ -43,11 +43,11 @@ def remove_item_cart(request, item_id):
     print(f"Cart Owner: {cart_item.cart.user}")
     if cart_item.cart.user == request.user:
         print("WARNING: User matches! continuing deletion.")
-        # cart_item.delete()
+        cart_item.delete()
 
-        # messages.success(request, 'This Cart item is removed successfully!')
+        messages.success(request, 'This Cart item is removed successfully!')
     else:
         print("WARNING: User mismatch! Skipping deletion.")
-        # messages.error(request, 'You are unauthorized to remove this item from cart')
+        messages.error(request, 'You are unauthorized to remove this item from cart')
 
     return redirect('index')
