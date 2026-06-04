@@ -25,7 +25,7 @@
         </td>
         <td>${{ item.product.price|floatformat:2 }}</td>
         <td>
-            <form action="#" method="POST" class="d-flex" style="max-width: 100px;">
+            <form action="{% url 'update-cart-item' item.id %}" method="POST" class="d-flex" style="max-width: 100px;">
                 {% csrf_token %}
                 <input type="number" name="quantity" value="{{ item.quantity }}" class="form-control form-control-sm me-2" min="1">
                 <button type="submit" class="btn btn-sm btn-outline-secondary">&#x21bb;</button>

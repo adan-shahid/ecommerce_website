@@ -36,7 +36,7 @@ def add_to_cart(request, product_id):
     print(f'added {product.name} to cart database')
     return redirect('index')
 
-def remove_item_cart(request, item_id):
+def remove_cart_item(request, item_id):
     print('This function is triggered')
     cart_item = get_object_or_404(CartItem, id=item_id)
     print(f"Current User: {request.user}")
@@ -51,3 +51,12 @@ def remove_item_cart(request, item_id):
         messages.error(request, 'You are unauthorized to remove this item from cart')
 
     return redirect('index')
+
+
+def update_cart_item(request, item_id):
+    if request.method == 'POST':
+        quantity = request.POST.get('quantity')
+        cart_item = get_object_or_404(CartItem, id=item_id)
+        cart_item.quantity = quantity
+        cart_item.save()
+    return redirect('cart-detail')
