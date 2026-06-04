@@ -5,9 +5,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 # Create your views here.
 
+@login_required
 def cart(request):
     return render(request, 'cart/cart_page.html' )
 
+@login_required
 def cart_detail(request):
     cart_items = CartItem.objects.filter(cart__user=request.user)
     cart_total = 0
