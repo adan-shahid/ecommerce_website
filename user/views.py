@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
+import requests
+from django.conf import settings
+
 
 from django.contrib.auth import login, logout, authenticate
 from .forms import customUserCreationForm, UserProfileUpdateForm, passwordresetForm
@@ -44,6 +47,20 @@ def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        recapthca_response = request.POST.get('g-recaptcha-response')
+
+        recapthca_verify = requests.post(
+            'https://www.google.com/recaptcha/api/siteverify',
+            data = {
+                'secret':settings.RECAPTCHA_SECRET_KEY,
+                'response': recapthca_response,
+            }
+
+        ).json()
+        if not recapthca_verify.get('success'):
+            messages.error(request, 'Invalid Recaptcha. Please Try Again')
+
+            return redirect('login')
 
         user = authenticate(request, username=username, password=password)
         if user is not None:
@@ -53,9 +70,12 @@ def login_view(request):
         else:
             messages.error(request, 'Invalid Login credentials')
             return redirect('login')
+    context = {
+        'recaptcha_site_key':settings.RECAPTCHA_SITE_KEY,
+    }
                
 
-    return render(request, 'user/login.html')
+    return render(request, 'user/login.html', context)
 
 
 def logout_view(request):

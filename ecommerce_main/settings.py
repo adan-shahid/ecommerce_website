@@ -30,6 +30,9 @@ ALLOWED_HOSTS = []
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBacked'
 
+RECAPTCHA_SITE_KEY=config('RECAPTCHA_SITE_KEY')
+RECAPTCHA_SECRET_KEY=config('RECAPTCHA_SECRET_KEY')
+
 
 # Application definition
 
