@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'user',
     'products',
     'cart',
+    'payments',
 ]
 
 AUTH_USER_MODEL = 'user.customUser' #changes the built-in user model to our custom user model.
