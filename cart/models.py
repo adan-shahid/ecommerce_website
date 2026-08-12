@@ -4,17 +4,26 @@ from products.models import Product
 # Create your models here.
 
 class Cart(models.Model):
-    
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # to ensure 1 active cart per user account
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='cart')
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def total_price(self):
+        return sum(item.subtotal for item in self.items.all())
+
+    @property
+    def total_items_count(self):
+        return sum(item.quantity for item in self.items.all())
+
     def __str__(self):
-        return f"Cart is created for {self.user.username}"
+        return f"Cart for {self.user.username}"
     
+
 class CartItem(models.Model):
-    cart = models.ForeignKey(Cart, on_delete = models.CASCADE, related_name='items')
-    product = models.ForeignKey(Product, on_delete = models.CASCADE)
-    quantity = models.IntegerField(default=1)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
 
     @property
     def subtotal(self):
