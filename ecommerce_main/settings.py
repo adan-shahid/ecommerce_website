@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'products',
     'cart',
     'payments',
+    'orders',
 ]
 
 AUTH_USER_MODEL = 'user.customUser' #changes the built-in user model to our custom user model.
@@ -143,10 +144,3 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 
-# Jazzcash Configuration
-JAZZCASH_MERCHANT_ID = config('JAZZCASH_MERCHANT_ID')
-JAZZCASH_PASSWORD = config('JAZZCASH_PASSWORD')
-JAZZCASH_INTEGRITY_SALT = config('JAZZCASH_INTEGRITY_SALT')
-JAZZCASH_POST_URL = #
-
-JAZZCASH_RETURN_URL = 
