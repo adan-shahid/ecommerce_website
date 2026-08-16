@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+    <div class="container" style="max-width: 800px;">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-bottom">
+                <h4 class="mb-0 text-dark">Invoice Order #{{ order.id }}</h4>
+                {% if order.status == 'Paid' %}
+                    <span class="badge bg-success fs-6">Paid</span>
+                {% elif order.status == 'Pending' %}
+                    <span class="badge bg-warning text-dark fs-6">Pending</span>
+                {% else %}
+                    <span class="badge bg-danger fs-6">{{ order.status }}</span>
+                {% endif %}
+            </div>
+
+            <div class="card-body p-4">
+                <!-- Metadata Row -->
+                <div class="row mb-4">
+                    <div class="col-sm-6">
+                        <p class="text-muted mb-1 small">Date Placed</p>
+                        <p class="fw-semibold mb-0">{{ order.created_at|date:"F d, Y - H:i" }}</p>
+                    </div>
+                    <div class="col-sm-6 text-sm-end mt-3 mt-sm-0">
+                        <p class="text-muted mb-1 small">Stripe Transaction ID</p>
+                        <p class="fw-semibold text-break mb-0">{{ order.transaction_id|default:"N/A" }}</p>
+                    </div>
+                </div>
+
+                <!-- Items Table -->
+                <div class="table-responsive mb-4">
+                    <table class="table table-bordered align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Item Name</th>
+                                <th class="text-center">Unit Price</th>
+                                <th class="text-center">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in order.items.all %}
+                                <tr>
+                                    <td><strong>{{ item.product.name }}</strong></td>
+                                    <td class="text-center">${{ item.price }}</td>
+                                    <td class="text-center">{{ item.quantity }}</td>
+                                </tr>
+                            {% endfor %}
+                            <tr class="table-light fw-bold fs-5">
+                                <td colspan="2" class="text-end">Grand Total:</td>
+                                <td class="text-center text-primary">${{ order.total_price }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Footer Navigation -->
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="{% url 'order_list' %}" class="btn btn-outline-secondary">← Back to My Orders</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock  %}
