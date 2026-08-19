@@ -22,6 +22,6 @@ class OrderItem(models.Model):
 
     @property
     def subtotal(self):
-        return self.price * self.product
+        return self.price * self.quantity
 
     

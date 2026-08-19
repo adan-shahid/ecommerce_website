@@ -3,7 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.payment, name='payment'),
+    path('', views.create_checkout_session, name='create_checkout_session'),
     
 
 ]
