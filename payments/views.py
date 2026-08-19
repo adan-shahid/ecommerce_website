@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from cart.models import CartItem, Cart
 from orders.models import Order, OrderItem
@@ -52,21 +52,39 @@ def create_checkout_session(request):
             'quantity': item.quantity,
         })
 
-    print("ORDER ")
-    print("Order ID:", order.id)
-    print("User:", order.user)
-    print("Total price:", order.total_price)
-    print("Status:", order.status)
+    checkout_session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=line_items,
+        mode='payment',
+        client_reference_id=str(order.id)
+        success_url=request.build_absolute_uri('payment/success/') + '?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url=request.build_absolute_uri('payment/cancel/'),
+    )
 
-    print("\nORDER ITEMS ")
-    for order_item in order.items.all():
-        print(
-            "Product:", order_item.product.name,
-            "| Price:", order_item.price,
-            "| Quantity:", order_item.quantity
-        )
+    return redirect(checkout_session.url, code=303)
 
-    print("\nSTRIPE LINE ITEMS ")
-    print(line_items)
-    
 
+def payment_success(request):
+    session_id = request.GET.get('session_id')
+    if not session_id:
+        return redirect('cart_detail')
+
+    # here i am retrieving transaction details from Stripe
+    session = stripe.checkout.Session.retrieve(session_id)
+    order_id = session.client_reference_id
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+
+    # now i update the order status and save stripe payment id
+    order.status = 'Paid'
+    order.transaction_id = session.payment_intent
+    order.save()
+
+    request.user.cart.items.all().delete()
+    context = {
+        'order':order,
+    }
+
+    return render(request, 'payments/payment_success.html', context)
+
+def payment_cancel(request):
+    return render(request, 'payments/payment_cancel.html')
