@@ -4,7 +4,10 @@ from cart.models import CartItem, Cart
 from orders.models import Order, OrderItem
 import stripe
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.urls import reverse
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
 # Create your views here.
 def create_checkout_session(request):
     try:
@@ -47,9 +50,9 @@ def create_checkout_session(request):
         payment_method_types=['card'],
         line_items=line_items,
         mode='payment',
-        client_reference_id=str(order.id)
-        success_url=request.build_absolute_uri('payment/success/') + '?session_id={CHECKOUT_SESSION_ID}',
-        cancel_url=request.build_absolute_uri('payment/cancel/'),
+        client_reference_id=str(order.id),
+        success_url=request.build_absolute_uri(reverse('payment_success')) + '?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url=request.build_absolute_uri(reverse('payment_cancel')),
     )
 
     return redirect(checkout_session.url, code=303)
