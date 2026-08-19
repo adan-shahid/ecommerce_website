@@ -1,0 +1,6 @@
+<div class="container py-5 text-center">
+    <h2 class="text-success">Payment Successful!</h2>
+    <p>Thank you for your order. Your Order ID is <strong>#{{ order.id }}</strong>.</p>
+    <p>Transaction Reference: <code>{{ order.transaction_id }}</code></p>
+    <a href="{% url 'order_list' %}" class="btn btn-outline-primary mt-3">View Order History</a>
+</div>
